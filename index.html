@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f7f5" />
+    <meta
+      name="description"
+      content="A calm, modern dashboard for managing your mail."
+    />
+    <title>Inbox — Postmark</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <a class="brand" href="#" aria-label="Postmark home">
+          <span class="brand-mark" aria-hidden="true">p</span>
+          <span>postmark<span class="brand-period">.</span></span>
+        </a>
+
+        <button class="compose-button" id="compose-button" type="button">
+          <span class="compose-plus" aria-hidden="true">+</span>
+          Compose
+          <span class="compose-shortcut">C</span>
+        </button>
+
+        <div class="nav-section">
+          <p class="nav-label">MAILBOX</p>
+          <nav class="mail-nav" aria-label="Mailbox folders">
+            <button class="nav-item active" data-folder="Inbox" type="button">
+              <span class="nav-icon" aria-hidden="true">↙</span>
+              <span>Inbox</span>
+              <span class="nav-count" id="inbox-count">6</span>
+            </button>
+            <button class="nav-item" data-folder="Starred" type="button">
+              <span class="nav-icon" aria-hidden="true">☆</span>
+              <span>Starred</span>
+            </button>
+            <button class="nav-item" data-folder="Snoozed" type="button">
+              <span class="nav-icon" aria-hidden="true">◷</span>
+              <span>Snoozed</span>
+            </button>
+            <button class="nav-item" data-folder="Sent" type="button">
+              <span class="nav-icon" aria-hidden="true">↗</span>
+              <span>Sent</span>
+            </button>
+            <button class="nav-item" data-folder="Drafts" type="button">
+              <span class="nav-icon" aria-hidden="true">▤</span>
+              <span>Drafts</span>
+              <span class="nav-count muted" id="draft-count">2</span>
+            </button>
+            <button class="nav-item" data-folder="Archive" type="button">
+              <span class="nav-icon" aria-hidden="true">▱</span>
+              <span>Archive</span>
+            </button>
+          </nav>
+        </div>
+
+        <div class="nav-section labels-section">
+          <div class="label-heading">
+            <p class="nav-label">LABELS</p>
+            <button class="icon-button tiny" id="add-label" type="button" aria-label="Add label">+</button>
+          </div>
+          <button class="nav-item label-item" data-folder="Work" type="button">
+            <span class="label-dot work-dot"></span><span>Work</span>
+          </button>
+          <button class="nav-item label-item" data-folder="Personal" type="button">
+            <span class="label-dot personal-dot"></span><span>Personal</span>
+          </button>
+          <button class="nav-item label-item" data-folder="Travel" type="button">
+            <span class="label-dot travel-dot"></span><span>Travel</span>
+          </button>
+        </div>
+
+        <div class="storage-card">
+          <div class="storage-top">
+            <span class="storage-icon" aria-hidden="true">▣</span>
+            <span>Storage</span>
+            <span class="storage-percent">68%</span>
+          </div>
+          <div class="storage-track"><span></span></div>
+          <p>6.8 GB of 10 GB used</p>
+          <button class="upgrade-link" type="button">Manage storage <span>→</span></button>
+        </div>
+
+        <button class="profile-button" type="button">
+          <span class="avatar avatar-profile">JD</span>
+          <span class="profile-copy"><strong>Jordan Davis</strong><small>jordan@email.com</small></span>
+          <span class="profile-menu" aria-hidden="true">···</span>
+        </button>
+      </aside>
+
+      <main class="main-area">
+        <header class="topbar">
+          <button class="icon-button mobile-menu" id="menu-button" type="button" aria-label="Open navigation">☰</button>
+          <div class="breadcrumbs"><span>Mail</span><span class="crumb-slash">/</span><strong id="breadcrumb-folder">Inbox</strong></div>
+          <div class="topbar-actions">
+            <label class="search-box">
+              <span class="search-icon" aria-hidden="true">⌕</span>
+              <input id="search-input" type="search" placeholder="Search mail" autocomplete="off" />
+              <kbd>⌘ K</kbd>
+            </label>
+            <button class="icon-button help-button" type="button" aria-label="Help">?</button>
+            <button class="icon-button notification-button" type="button" aria-label="Notifications">
+              ♧<span class="notification-dot"></span>
+            </button>
+          </div>
+        </header>
+
+        <section class="dashboard-content">
+          <div class="welcome-row">
+            <div>
+              <p class="eyebrow" id="welcome-date">MONDAY, MAY 20</p>
+              <h1 id="page-heading">Good morning, Jordan <span class="wave" aria-hidden="true">✳</span></h1>
+              <p class="welcome-subtitle">Here’s what’s happening in your inbox today.</p>
+            </div>
+            <button class="today-button" type="button"><span aria-hidden="true">▦</span> Today <span class="today-chevron">⌄</span></button>
+          </div>
+
+          <div class="stats-grid" aria-label="Mail overview">
+            <article class="stat-card">
+              <div class="stat-label">Total emails <span class="stat-symbol blue">✉</span></div>
+              <div class="stat-value" id="total-emails">1,284</div>
+              <div class="stat-foot"><span class="trend-up">↗ 12.8%</span><span>vs last month</span></div>
+              <div class="sparkline spark-blue" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-label">Unread <span class="stat-symbol violet">◉</span></div>
+              <div class="stat-value" id="unread-total">6</div>
+              <div class="stat-foot"><span class="trend-neutral">↓ 3 today</span><span>keep it up</span></div>
+              <div class="sparkline spark-violet" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-label">Sent this week <span class="stat-symbol green">↗</span></div>
+              <div class="stat-value">48</div>
+              <div class="stat-foot"><span class="trend-up">↗ 8.2%</span><span>vs last week</span></div>
+              <div class="sparkline spark-green" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-label">Response rate <span class="stat-symbol orange">↩</span></div>
+              <div class="stat-value">92<span class="value-unit">%</span></div>
+              <div class="stat-foot"><span class="trend-up">↗ 4.6%</span><span>vs last month</span></div>
+              <div class="sparkline spark-orange" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            </article>
+          </div>
+
+          <section class="mail-panel" aria-label="Email">
+            <div class="mail-toolbar">
+              <div class="mail-tabs" role="tablist" aria-label="Filter emails">
+                <button class="mail-tab selected" data-filter="all" role="tab" aria-selected="true" type="button">All mail <span id="all-count">12</span></button>
+                <button class="mail-tab" data-filter="unread" role="tab" aria-selected="false" type="button">Unread <span id="unread-count">6</span></button>
+                <button class="mail-tab" data-filter="attachments" role="tab" aria-selected="false" type="button">Attachments</button>
+              </div>
+              <div class="toolbar-controls">
+                <span class="mail-range" id="mail-range">1–12 of 1,284</span>
+                <button class="icon-button toolbar-icon" id="previous-page" type="button" aria-label="Previous page">‹</button>
+                <button class="icon-button toolbar-icon" id="next-page" type="button" aria-label="Next page">›</button>
+                <span class="toolbar-divider"></span>
+                <button class="icon-button toolbar-icon" id="more-button" type="button" aria-label="More actions">···</button>
+              </div>
+            </div>
+            <div class="mail-workspace">
+              <div class="message-list" id="message-list" aria-label="Message list"></div>
+              <section class="message-preview" id="message-preview" aria-label="Selected message"></section>
+            </div>
+          </section>
+
+          <footer class="app-footer">
+            <span>© 2024 Postmark Inc.</span>
+            <div><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Help center</a></div>
+            <span class="sync-status"><i></i> All mail is up to date</span>
+          </footer>
+        </section>
+      </main>
+    </div>
+
+    <dialog class="compose-dialog" id="compose-dialog">
+      <form method="dialog" id="compose-form">
+        <div class="compose-header"><strong>New message</strong><button class="icon-button" id="close-compose" type="button" aria-label="Close">×</button></div>
+        <label class="compose-field">To <input id="compose-to" type="email" placeholder="name@example.com" required /></label>
+        <label class="compose-field">Subject <input id="compose-subject" type="text" placeholder="Add a subject" required /></label>
+        <label class="compose-body-label" for="compose-body">Message</label>
+        <textarea id="compose-body" rows="8" placeholder="Write your message…" required></textarea>
+        <div class="compose-footer"><span class="compose-note">Demo mode · messages stay in this browser</span><button class="send-button" type="submit">Send <span>↗</span></button></div>
+      </form>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
